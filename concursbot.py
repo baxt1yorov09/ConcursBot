@@ -3,11 +3,24 @@ import aiosqlite
 import asyncio
 from datetime import datetime, timedelta
 from aiogram import Bot, Dispatcher, types
-from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-from aiogram.enums import ParseMode
+from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, ParseMode
+from aiogram.utils import executor
+from aiogram.utils.exceptions import MessageNotModified
 
 
-# Flask server app.py da joylashgan
+from flask import Flask
+import threading
+
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return "Bot ishlayapti"
+
+def run():
+    app.run(host="0.0.0.0", port=10000)
+
+threading.Thread(target=run).start()
 
 
 
@@ -429,7 +442,7 @@ async def stat(call: types.CallbackQuery):
 
     try:
         await call.message.edit_text(stat_text, reply_markup=kb, parse_mode=ParseMode.HTML)
-    except:
+    except MessageNotModified:
         pass
 
 # -------- TOP --------
@@ -468,7 +481,7 @@ async def top(call: types.CallbackQuery):
 
     try:
         await call.message.edit_text(text, reply_markup=kb, parse_mode=ParseMode.HTML)
-    except:
+    except MessageNotModified:
         pass
 
 # -------- HELP --------
@@ -508,7 +521,7 @@ async def help_callback(call: types.CallbackQuery):
 
     try:
         await call.message.edit_text(help_text, reply_markup=kb, parse_mode=ParseMode.HTML)
-    except:
+    except MessageNotModified:
         pass
 
 @dp.callback_query_handler(lambda c: c.data == "back_to_main")
@@ -633,7 +646,7 @@ async def admin_stat(call: types.CallbackQuery):
 
     try:
         await call.message.edit_text(stat_text, reply_markup=kb, parse_mode=ParseMode.HTML)
-    except:
+    except MessageNotModified:
         pass
 
 # -------- SET INVITES --------
@@ -767,7 +780,7 @@ async def users_list(call: types.CallbackQuery):
 
     try:
         await call.message.edit_text(text, reply_markup=kb, parse_mode=ParseMode.HTML)
-    except:
+    except MessageNotModified:
         pass
 
 # -------- ANTI-CHEAT --------
@@ -811,7 +824,7 @@ async def anti_cheat_panel(call: types.CallbackQuery):
 
     try:
         await call.message.edit_text(text, reply_markup=kb, parse_mode=ParseMode.HTML)
-    except:
+    except MessageNotModified:
         pass
 
 # -------- ADMIN BACK --------
@@ -821,7 +834,7 @@ async def admin_back(call: types.CallbackQuery):
         return
     try:
         await call.message.edit_text(admin_text(), reply_markup=admin_kb(), parse_mode=ParseMode.HTML)
-    except:
+    except MessageNotModified:
         pass
 
 # -------- ADD ADMIN --------
@@ -1004,5 +1017,9 @@ async def handle_text(msg: types.Message):
         return
 
 # -------- MAIN --------
-# Main block app.py da chaqiriladi
+if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO)
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(init_db())
+    executor.start_polling(dp)
 
