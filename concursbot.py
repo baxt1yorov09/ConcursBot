@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 from aiogram import Bot, Dispatcher, types
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from aiogram.enums import ParseMode
-from aiogram.utils.exceptions import MessageNotModified
+from aiogram.exceptions import MessageNotModified
 
 
 # Flask server app.py da joylashgan
