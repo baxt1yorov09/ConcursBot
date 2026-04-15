@@ -5,7 +5,6 @@ from datetime import datetime, timedelta
 from aiogram import Bot, Dispatcher, types
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from aiogram.enums import ParseMode
-from aiogram.utils import executor
 from aiogram.utils.exceptions import MessageNotModified
 
 
