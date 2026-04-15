@@ -5,7 +5,6 @@ from datetime import datetime, timedelta
 from aiogram import Bot, Dispatcher, types
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from aiogram.enums import ParseMode
-from aiogram.exceptions import MessageNotModified
 
 
 # Flask server app.py da joylashgan
@@ -430,7 +429,7 @@ async def stat(call: types.CallbackQuery):
 
     try:
         await call.message.edit_text(stat_text, reply_markup=kb, parse_mode=ParseMode.HTML)
-    except MessageNotModified:
+    except:
         pass
 
 # -------- TOP --------
@@ -469,7 +468,7 @@ async def top(call: types.CallbackQuery):
 
     try:
         await call.message.edit_text(text, reply_markup=kb, parse_mode=ParseMode.HTML)
-    except MessageNotModified:
+    except:
         pass
 
 # -------- HELP --------
@@ -509,7 +508,7 @@ async def help_callback(call: types.CallbackQuery):
 
     try:
         await call.message.edit_text(help_text, reply_markup=kb, parse_mode=ParseMode.HTML)
-    except MessageNotModified:
+    except:
         pass
 
 @dp.callback_query_handler(lambda c: c.data == "back_to_main")
@@ -634,7 +633,7 @@ async def admin_stat(call: types.CallbackQuery):
 
     try:
         await call.message.edit_text(stat_text, reply_markup=kb, parse_mode=ParseMode.HTML)
-    except MessageNotModified:
+    except:
         pass
 
 # -------- SET INVITES --------
@@ -768,7 +767,7 @@ async def users_list(call: types.CallbackQuery):
 
     try:
         await call.message.edit_text(text, reply_markup=kb, parse_mode=ParseMode.HTML)
-    except MessageNotModified:
+    except:
         pass
 
 # -------- ANTI-CHEAT --------
@@ -812,7 +811,7 @@ async def anti_cheat_panel(call: types.CallbackQuery):
 
     try:
         await call.message.edit_text(text, reply_markup=kb, parse_mode=ParseMode.HTML)
-    except MessageNotModified:
+    except:
         pass
 
 # -------- ADMIN BACK --------
@@ -822,7 +821,7 @@ async def admin_back(call: types.CallbackQuery):
         return
     try:
         await call.message.edit_text(admin_text(), reply_markup=admin_kb(), parse_mode=ParseMode.HTML)
-    except MessageNotModified:
+    except:
         pass
 
 # -------- ADD ADMIN --------
